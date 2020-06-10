@@ -92,7 +92,7 @@ def ventana():
     main_frame.config(bg="black",width="500",height="300")
 
     frame = Frame(main_frame)
-    frame.pack(anchor="c")
+    frame.pack(anchor="c",pady=50)
     frame.pack_propagate(0)
     frame.config(width="300",height="200")
 
@@ -134,4 +134,3 @@ def ventana():
     btnPdf.pack(pady=5)
 
     master.mainloop()
-ventana()
