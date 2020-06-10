@@ -35,7 +35,7 @@ def jpg():
     NewImg.save("pdfMakerArchivosJPG/" + archivo.get() + ".JPEG","JPEG")
     messagebox.showinfo(title="pdfMaker ha creado el archivo: ",message="El certificado a sido creado para: " )
 
-def pdf():
+def pdf(archivo,suNombre,suCedula,):
     # Librerias
     from reportlab.lib.units import cm
     from reportlab.pdfgen.canvas import Canvas
@@ -81,56 +81,57 @@ def pdf():
         #Mensaje de algo salio mal
         messagebox.showwarning(title="Error: 404 Not Found ", message="El archivo no se a creado correctamente")
 
+def ventana():
+    #Se crea la ventana
+    master = Tk()
+    master.title("PdfMaker")
 
-#Se crea la ventana
-master = Tk()
-master.title("PdfMaker")
+    main_frame = Frame(master)
+    main_frame.pack()
+    main_frame.pack_propagate(0)
+    main_frame.config(bg="black",width="500",height="300")
 
-main_frame = Frame(master)
-main_frame.pack()
-main_frame.pack_propagate(0)
-main_frame.config(bg="black",width="500",height="300")
+    frame = Frame(main_frame)
+    frame.pack(anchor="c")
+    frame.pack_propagate(0)
+    frame.config(width="300",height="200")
 
-frame = Frame(main_frame)
-frame.pack(anchor="c")
-frame.pack_propagate(0)
-frame.config(width="300",height="200")
+    black= "#181616"
+    white= "white"
+    frame.config(bg=black)
+    #Estilos para los texto de los Label y Entry
+    disenoText = ('Helvetica',10,"bold")
+    disenoText1 = ('Helvetica',10)
 
-black= "#181616"
-white= "white"
-frame.config(bg=black)
-#Estilos para los texto de los Label y Entry
-disenoText = ('Helvetica',10,"bold")
-disenoText1 = ('Helvetica',10)
+    #Label y Entry para Ingresar el nombre del archivo
+    lblarchivo = Label(frame,text="Nombre del archivo:",fg=white,bg=black,font=disenoText)
+    lblarchivo.pack(anchor=W,pady=2)
 
-#Label y Entry para Ingresar el nombre del archivo
-lblarchivo = Label(frame,text="Nombre del archivo:",fg=white,bg=black,font=disenoText)
-lblarchivo.pack(anchor=W,pady=2)
+    archivo = StringVar()
+    Archivo = Entry(frame,textvariable=archivo,width=50,bd=1,font=disenoText1)
+    Archivo.pack()
 
-archivo = StringVar()
-Archivo = Entry(frame,textvariable=archivo,width=50,bd=1,font=disenoText1)
-Archivo.pack()
+    Archivo.focus()
 
-Archivo.focus()
+    #Entry para Ingresar el nombre de la persona
+    lblnombre = Label(frame,text="Nombre:",bg=black,fg=white,font=disenoText)
+    lblnombre.pack(anchor=W,pady=2)
 
-#Entry para Ingresar el nombre de la persona
-lblnombre = Label(frame,text="Nombre:",bg=black,fg=white,font=disenoText)
-lblnombre.pack(anchor=W,pady=2)
+    suNombre = StringVar()
+    Nombre =Entry(frame,textvariable=suNombre,width=50,bd=1,font=disenoText1)
+    Nombre.pack()
 
-suNombre = StringVar()
-Nombre =Entry(frame,textvariable=suNombre,width=50,bd=1,font=disenoText1)
-Nombre.pack()
+    #Entry para ingresar la cedula de la persona
+    lblCedula = Label(frame,text="Cedula:",fg=white,bg=black,font=disenoText)
+    lblCedula.pack(anchor=W,pady=2)
 
-#Entry para ingresar la cedula de la persona
-lblCedula = Label(frame,text="Cedula:",fg=white,bg=black,font=disenoText)
-lblCedula.pack(anchor=W,pady=2)
+    suCedula = StringVar()
+    Cedula = Entry(frame,textvariable=suCedula,width=50,bd=1,font=disenoText1)
+    Cedula.pack()
 
-suCedula = StringVar()
-Cedula = Entry(frame,textvariable=suCedula,width=50,bd=1,font=disenoText1)
-Cedula.pack()
+    #El boton para Activar la Funcion que crea el archivo
+    btnPdf = Button(frame,bg="white",text="Crear Pdf",command=lambda: pdf(archivo,suNombre,suCedula) )
+    btnPdf.pack(pady=5)
 
-#El boton para Activar la Funcion que crea el archivo
-btnPdf = Button(frame,bg="white",text="Crear Pdf",command=pdf)
-btnPdf.pack(pady=5)
-
-master.mainloop()
+    master.mainloop()
+ventana()
